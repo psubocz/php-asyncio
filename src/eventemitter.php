@@ -26,8 +26,10 @@ abstract class EventEmitter {
 	protected function emit($event) {
 
 		if (!isset($this->listeners[$event])) return;
+		$args = func_get_args();
+		array_shift($args);
 		foreach($this->listeners[$event] as $callback) {
-			$callback();
+			call_user_func_array($callback, $args);
 		}
 
 	}
