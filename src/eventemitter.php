@@ -5,7 +5,7 @@ abstract class EventEmitter {
 
 	private $listeners = array();
 	
-	public function addEventListener($event, $callback) {
+	public function on($event, $callback) {
 	
 		if (!isset($this->listeners[$event])) {
 			$this->listeners[$event] = array($callback);

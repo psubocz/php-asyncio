@@ -57,7 +57,7 @@ echo "destruct\n";
 	public function close() {
 
 		socket_shutdown($this->sock);
-		$this->emit('onClose');
+		$this->emit('close');
 	}
 
 
@@ -77,10 +77,10 @@ echo "destruct\n";
 	
 	public function _connev($socket, $flag, $args) {
 		if (socket_get_option($this->sock, SOL_SOCKET, SO_ERROR)) {
-			$this->emit('onError');
+			$this->emit('error');
 		} else {
 			$this->initBufferedEvents();
-			$this->emit('onConnect');
+			$this->emit('connect');
 		}
 	}
 
@@ -88,7 +88,7 @@ echo "destruct\n";
 	public function _buffread($buf, $args) {
 
 		$data = event_buffer_read($this->buff, 4096);
-		$this->emit('onData', $data);
+		$this->emit('data', $data);
 		
 	}
 
@@ -96,7 +96,7 @@ echo "destruct\n";
 	public function _bufferror($buf, $flags, $args) {
 
 		if (($flags & EVBUFFER_EOF) != 0) {
-			$this->emit('onClose');
+			$this->emit('close');
 			return;
 		}
 		echo "error ".$flags."\n";
