@@ -31,7 +31,7 @@ class Server extends EventEmitter {
 
 		$client = socket_accept($this->sock);
 		$clisock = new Socket($client);
-		$this->emit('onConnection', $clisock);
+		$this->emit('connection', $clisock);
 		
 	}
 }

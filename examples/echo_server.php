@@ -10,8 +10,8 @@ asyncio\Reactor::init();
 $server = new asyncio\Server(8000);
 echo "Listening on 0.0.0.0:8000\n";
 
-$server->addEventListener('onConnection', function($sock) {
-	$sock->addEventListener('onData', function($data) use ($sock) {
+$server->on('connection', function($sock) {
+	$sock->on('data', function($data) use ($sock) {
 		echo 'got: '.$data;
 		$sock->write('server says: '.$data);
 	});
